@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import List from "./List";
+import data from "./data";
+import { useState } from "react";
 
 function App() {
+  const [people, setPeople] = useState(data);
+
+  const reloadAllItem = () => {
+    setPeople(data);
+  };
+
+  const removeItem = (id) => {
+    setPeople((oldValue) => oldValue.filter((el) => el.id !== id));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section>
+      <div className="container">
+        <h2 style={{ color: "var(--bg-blue" }}>Prossimi Incontri</h2>
+        <div className="people-list">
+          <List data={people} removeItem={removeItem} />
+        </div>
+        <div className="btn-group">
+          <button className="btn btn-reset" onClick={reloadAllItem}>
+            Reload
+          </button>
+          <button className="btn btn-delete" onClick={() => setPeople([])}>
+            Delete All
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 
