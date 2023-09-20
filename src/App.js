@@ -1,33 +1,44 @@
-import List from "./List";
+import { useState, useEffect } from "react";
 import data from "./data";
-import { useState } from "react";
+import Articolo from "./Articolo";
+
+//Funzione che se presente 'Theme' nel localStorage
+const getFromLocalStorage = () => {
+  if (localStorage.getItem("theme")) {
+    return localStorage.getItem("theme");
+  } else {
+    return "light-mode";
+  }
+};
+// returna il suo valore o di default return 'light-mode'
 
 function App() {
-  const [people, setPeople] = useState(data);
+  const [theme, setTheme] = useState(getFromLocalStorage());
 
-  const reloadAllItem = () => {
-    setPeople(data);
+  const changeTheme = () => {
+    if (theme === "light-mode") {
+      setTheme("dark-mode");
+    } else {
+      setTheme("light-mode");
+    }
   };
 
-  const removeItem = (id) => {
-    setPeople((oldValue) => oldValue.filter((el) => el.id !== id));
-  };
+  useEffect(() => {
+    document.documentElement.className = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
-    <section>
+    <section className="section-center">
       <div className="container">
-        <h2 style={{ color: "var(--bg-blue" }}>Prossimi Incontri</h2>
-        <div className="people-list">
-          <List data={people} removeItem={removeItem} />
-        </div>
-        <div className="btn-group">
-          <button className="btn btn-reset" onClick={reloadAllItem}>
-            Reload
-          </button>
-          <button className="btn btn-delete" onClick={() => setPeople([])}>
-            Delete All
-          </button>
-        </div>
+        <button className="btn" onClick={changeTheme}>
+          Cambia
+        </button>
+        <section className="article-section">
+          {data.map((el) => (
+            <Articolo key={el.id} {...el} />
+          ))}
+        </section>
       </div>
     </section>
   );
