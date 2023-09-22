@@ -1,10 +1,13 @@
-import { Slide, Slider } from "./components";
+import { Menu } from "./components";
 
 function App() {
   return (
-    <section className="section-center">
-      <Slider />
-    </section>
+    <div className="App">
+      <section className="section-center">
+        <h3>Nice Cream</h3>
+        <Menu />
+      </section>
+    </div>
   );
 }
 

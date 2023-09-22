@@ -1,4 +1,4 @@
-import Slide from "./Slide";
-import Slider from "./Slider";
+import Menu from "./Menu";
+import Gelato from "./Gelato";
 
-export { Slide, Slider };
+export { Menu, Gelato };
