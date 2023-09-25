@@ -1,12 +1,9 @@
-import { Menu } from "./components";
+import ColorGrading from "./components/ColorGrading";
 
 function App() {
   return (
     <div className="App">
-      <section className="section-center">
-        <h3>Nice Cream</h3>
-        <Menu />
-      </section>
+      <ColorGrading />
     </div>
   );
 }
