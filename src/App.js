@@ -1,9 +1,9 @@
-import ColorGrading from "./components/ColorGrading";
+import Navbar from "./Navbar";
 
 function App() {
   return (
     <div className="App">
-      <ColorGrading />
+      <Navbar />
     </div>
   );
 }
