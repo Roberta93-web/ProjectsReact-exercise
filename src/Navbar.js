@@ -1,46 +1,29 @@
-import React, { useState, useEffect, useRef } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import { FaBars } from "react-icons/fa";
 import { links, SocialBar } from "./links";
+import { useGlobalContext } from "./context";
 
 const Navbar = () => {
-  const [show, setShow] = useState(false);
-  const linkContainerRef = useRef(null);
-  const linkListRef = useRef(null);
-
-  useEffect(() => {
-    const linksListHeight = linkListRef.current.getBoundingClientRect().height;
-    if (show) {
-      linkContainerRef.current.style.height = `${linksListHeight}px`;
-    } else {
-      linkContainerRef.current.style.height = `0px`;
-    }
-  }, [show]);
+  const { openSidebar } = useGlobalContext();
   return (
     <nav className="nav">
       <header className="nav-header">
         <div className="nav-brand">
-          <img src={logo} alt="logo" className="nav-logo" />
-          <h4>DevBar</h4>
+          <h4>Navbar</h4>
         </div>
-        <button className="btn nav-toggler" onClick={() => setShow(!show)}>
+        <button className="btn nav-toggler" onClick={openSidebar}>
           <FaBars className="nav-icon" />
         </button>
       </header>
-      <div
-        className={`links-container ${
-          show ? "links-container show" : "links-container"
-        }`}
-        ref={linkContainerRef}
-      >
-        <ul className="nav-links" ref={linkListRef}>
-          {links.map((el) => (
-            <li key={el.id}>
-              <a href={el.url} alt={el.text}>
-                {el.text}
-              </a>
-            </li>
-          ))}
+      <div className="links-container">
+        <ul className="nav-links">
+          {links.map((link) => {
+            return (
+              <li key={link.id}>
+                <a href={link.url}>{link.text}</a>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="social-links">
